@@ -37,8 +37,11 @@
       myts <- ts(Data_avg_by_interval$x, start = 0 , end = 287) 
       
       plot(myts, type = "l")
-      
-      
+```
+
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-2.png) 
+
+```r
       maximum_steps <- max(myts)
    
          NA_list <- which(is.na(Data_Raw$steps)) 
@@ -47,105 +50,40 @@
          Unique_count <- unique (unlist(lapply (Data_Raw, function (x) which (is.na (x))))) 
   
       library("gam") 
-```
-
-```
-## Error in library("gam"): there is no package called 'gam'
-```
-
-```r
+  
       Data_with_NA_treated <- na.gam.replace(Data_Raw)
-```
-
-```
-## Error in eval(expr, envir, enclos): could not find function "na.gam.replace"
-```
-
-```r
+  
       Unique_count2 <- unique (unlist(lapply (Data_with_NA_treated, function (x) which (is.na (x))))) 
-```
-
-```
-## Error in lapply(Data_with_NA_treated, function(x) which(is.na(x))): object 'Data_with_NA_treated' not found
-```
-
-```r
       New_Data<-Data_with_NA_treated
-```
-
-```
-## Error in eval(expr, envir, enclos): object 'Data_with_NA_treated' not found
-```
-
-```r
+  
+  
+    
       Mean_steps_New_Data<- mean(New_Data$steps) 
-```
 
-```
-## Error in mean(New_Data$steps): object 'New_Data' not found
-```
-
-```r
       Median_steps_New_Data <- median(New_Data$steps) 
-```
-
-```
-## Error in median(New_Data$steps): object 'New_Data' not found
-```
-
-```r
       Data_with_na_sum<-aggregate(Data_with_NA_treated$steps, by = list(date = Data_with_NA_treated$date),sum)
-```
 
-```
-## Error in aggregate(Data_with_NA_treated$steps, by = list(date = Data_with_NA_treated$date), : object 'Data_with_NA_treated' not found
-```
-
-```r
       hist(Data_with_na_sum$x, breaks = 8,col="blue", xlab="Total number of steps taken each day",ylab="Frequency of steps", main="Histogram for Total number of steps")
 ```
 
-```
-## Error in hist(Data_with_na_sum$x, breaks = 8, col = "blue", xlab = "Total number of steps taken each day", : object 'Data_with_na_sum' not found
-```
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-3.png) 
 
 ```r
       Data_with_Week_details <-Data_with_NA_treated
-```
 
-```
-## Error in eval(expr, envir, enclos): object 'Data_with_NA_treated' not found
-```
-
-```r
       Data_with_Week_details$weekday_end<-ifelse(weekdays(as.Date(Data_with_Week_details$date)) %in% c('Saturday','Sunday'), "weekend", "weekday")
-```
 
-```
-## Error in as.Date(Data_with_Week_details$date): object 'Data_with_Week_details' not found
-```
-
-```r
+  
       Data_avg_by_interval_by_weekday_end <- aggregate(Data_with_Week_details$steps, by = list(interval=Data_with_Week_details$interval, week_day_end = Data_with_Week_details$weekday_end), mean)
-```
 
-```
-## Error in aggregate(Data_with_Week_details$steps, by = list(interval = Data_with_Week_details$interval, : object 'Data_with_Week_details' not found
-```
 
-```r
+ 
     library("lattice") 
-```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-2.png) 
-
-```r
     xyplot(x~interval|week_day_end, data=Data_avg_by_interval_by_weekday_end, type="l", xlab="Interval",ylab="Total number of steps", main="Week Day Vs Weekend Trend")
 ```
 
-```
-## Error in eval(substitute(groups), data, environment(x)): object 'Data_avg_by_interval_by_weekday_end' not found
-```
+![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-4.png) 
 
 
 ```r
@@ -158,6 +96,4 @@ plot(myts, type = "l")
 xyplot(x~interval|week_day_end, data=Data_avg_by_interval_by_weekday_end, type="l", xlab="Interval",ylab="Total number of steps", main="Week Day Vs Weekend Trend",layout=c(1,2))
 ```
 
-```
-## Error in eval(substitute(groups), data, environment(x)): object 'Data_avg_by_interval_by_weekday_end' not found
-```
+![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2-2.png) 
